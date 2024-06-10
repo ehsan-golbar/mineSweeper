@@ -1,0 +1,31 @@
+name:  compile code
+on: [push, pull_request]
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup gcc
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: latest
+          platform: x64
+      - name: build1
+        run: cc -Wall -Wextra -Werror -pedantic sample1.c
+      - name: build2
+        run: cc -Wall -Wextra -Werror -pedantic sample2.c
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup gcc
+        uses: egor-tensin/setup-mingw@v2
+        with:
+          platform: x64
+      - name: build1
+        run: cc -Wall -Wextra -Werror -pedantic sample1.c
+      - name: build2
+        run: cc -Wall -Wextra -Werror -pedantic sample2.c
+
+
+
